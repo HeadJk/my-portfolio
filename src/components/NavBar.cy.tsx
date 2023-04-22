@@ -35,4 +35,11 @@ describe('<NavBar />', () => {
     cy.contains("Test2").should("not.be.visible")
     cy.contains("Test3").should("not.be.visible")
   })
+  it('renders with links visible after pressing button on small screens', () => {
+    cy.viewport(360, 800);
+    cy.mount(<NavBar menu={TestMenu} />)
+    cy.contains("Test1").should("not.be.visible")
+    cy.contains("Test2").should("not.be.visible")
+    cy.contains("Test3").should("not.be.visible")
+  })
 })
