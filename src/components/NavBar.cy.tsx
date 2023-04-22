@@ -16,6 +16,14 @@ const TestMenu: React.ComponentProps<typeof NavBar>['menu'] = [
   },
 ]
 
+function eachMenuItemShould(chainers: string, value?: any) {
+  TestMenu.forEach(navItem => cy.contains(navItem.label).should(chainers, value))
+}
+
+function eachCondensedMenuItemShould(chainers: string, value?: any) {
+  TestMenu.forEach(navItem => cy.get(".MuiMenu-list").contains(navItem.label).should(chainers, value))
+}
+
 describe('<NavBar />', () => {
   it('renders', () => {
     // see: https://on.cypress.io/mounting-react
@@ -24,22 +32,25 @@ describe('<NavBar />', () => {
   it('renders with links visible on large screens', () => {
     cy.viewport(1260, 800);
     cy.mount(<NavBar menu={TestMenu} />)
-    cy.contains("Test1").should("be.visible")
-    cy.contains("Test2").should("be.visible")
-    cy.contains("Test3").should("be.visible")
+    
+    eachMenuItemShould("be.visible")
   })
   it('renders with links hidden on small screens', () => {
     cy.viewport(360, 800);
     cy.mount(<NavBar menu={TestMenu} />)
-    cy.contains("Test1").should("not.be.visible")
-    cy.contains("Test2").should("not.be.visible")
-    cy.contains("Test3").should("not.be.visible")
+
+    eachMenuItemShould("not.be.visible")
   })
   it('renders with links visible after pressing button on small screens', () => {
     cy.viewport(360, 800);
     cy.mount(<NavBar menu={TestMenu} />)
-    cy.contains("Test1").should("not.be.visible")
-    cy.contains("Test2").should("not.be.visible")
-    cy.contains("Test3").should("not.be.visible")
+    
+    eachMenuItemShould("not.be.visible")
+    eachCondensedMenuItemShould("not.be.visible")
+
+    cy.get('[data-testid="MenuIcon"]').click();
+
+    eachMenuItemShould("not.be.visible")
+    eachCondensedMenuItemShould("be.visible")
   })
 })
