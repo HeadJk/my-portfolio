@@ -5,9 +5,12 @@
   "scripts": {
     "dev": "npm-run-all --parallel next:dev storybook:dev cypress:open",
     "test": "cypress:test",
+    "start": "npm run next:start",
+    "build": "npm run next:build",
+    "ci": "npm-run-all build start",
     "next:dev": "start http://localhost:3000 & next dev",
     "next:build": "next build",
-    "next:start": "next start",
+    "next:start": "start http://localhost:3000 & next start",
     "next:lint": "next lint",
     "storybook:dev": "storybook dev -p 6006",
     "storybook:build": "storybook build",
