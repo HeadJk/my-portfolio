@@ -1,43 +1,10 @@
 import NavBar from '@/components/NavBar'
 import MainMenu from '@/menus/MainMenu'
-import { getThemeTokens } from '@/themes/theme'
-import { ThemeProvider, createTheme, useTheme } from '@mui/material'
-import { Inter } from 'next/font/google'
 import Head from 'next/head'
-import { createContext, useContext, useMemo, useState } from 'react'
-
-const inter = Inter({ subsets: ['latin'] })
-
-const ColorModeContext = createContext({ toggleColorMode: () => {} });
-
-export default function ToggleColorMode() {
-  const [mode, setMode] = useState<'light' | 'dark'>('light');
-  const colorMode = useMemo(
-    () => ({
-      toggleColorMode: () => {
-        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
-      },
-    }),
-    [],
-  );
-
-  const theme = useMemo(
-    () =>
-      createTheme(getThemeTokens(mode)),
-    [mode],
-  );
-
-  return (
-    <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>
-        <Home />
-      </ThemeProvider>
-    </ColorModeContext.Provider>
-  );
-}
+import React, { useContext } from 'react'
+import AppContext, { ColorModeContext } from '../context/AppContext'
 
 function Home() {
-  const theme = useTheme();
   const colorMode = useContext(ColorModeContext);
 
   return (
@@ -49,8 +16,16 @@ function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <NavBar menu={MainMenu} onToggleColorMode={colorMode.toggleColorMode} position='relative' />
+          <NavBar menu={MainMenu} onToggleColorMode={colorMode.toggleColorMode} position='relative' />
       </main>
     </>
+  )
+}
+
+export default function HomeWithContext() {
+  return (
+    <AppContext>
+      <Home />
+    </AppContext>
   )
 }
