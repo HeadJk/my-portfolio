@@ -4,13 +4,15 @@
   "private": true,
   "scripts": {
     "dev": "npm-run-all --parallel next:dev storybook:dev cypress:open",
+    "test": "cypress:test",
     "next:dev": "start http://localhost:3000 & next dev",
     "next:build": "next build",
     "next:start": "next start",
     "next:lint": "next lint",
     "storybook:dev": "storybook dev -p 6006",
     "storybook:build": "storybook build",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "cypress:test": "cypress run --component --record --key 6b732426-cacf-4412-b180-e28c66dea437"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
