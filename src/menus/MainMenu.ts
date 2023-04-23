@@ -2,12 +2,16 @@ import { NavItem } from "@/components/NavBar";
 
 const MainMenu = [
     {
-        label: 'Products',
+        label: 'Home',
         destination: '/'
     },
     {
-        label: 'Pricing',
-        destination: '/'
+        label: 'Projects',
+        destination: '/projects'
+    },
+    {
+        label: 'Contact',
+        destination: '/contact'
     },
 ] as const satisfies readonly NavItem[];
 

@@ -75,7 +75,7 @@ const NavBar = ({ menu: navItems, ...props }: NavBarPropTypes) => {
     }
 
     return (
-        <AppBar {...props}>
+        <AppBar {...props} color='primary'>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
