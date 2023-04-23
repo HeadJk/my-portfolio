@@ -5,13 +5,13 @@ import MainMenu from '../menus/MainMenu';
 const meta: Meta<typeof NavBar> = {
     title: 'Example/NavBar',
     component: NavBar,
-    tags: ['autodocs'],
+    tags: ['autodocs'],    
 };
 
 export default meta;
 type Story = StoryObj<typeof NavBar>;
 
-export const Default: Story = {
+export const MainNavBar: Story = {
     args: {
         menu: MainMenu
     }
