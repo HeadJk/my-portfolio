@@ -1,4 +1,4 @@
-import { Palette, PaletteMode, createTheme } from "@mui/material";
+import { Palette, PaletteMode, createTheme, Theme, ThemeOptions } from "@mui/material";
 import { light } from "@mui/material/styles/createPalette";
 
 declare module '@mui/material/styles' {
@@ -21,5 +21,5 @@ export const getThemeTokens = (mode: PaletteMode) => ({
         primary: {
             main: "#00B2CA"
         },
-    },
-});
+    }
+} as const satisfies ThemeOptions);

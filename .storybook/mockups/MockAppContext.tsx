@@ -1,5 +1,5 @@
 import { getThemeTokens } from '../../src/themes/theme'
-import { ThemeProvider, createTheme, useMediaQuery } from '@mui/material'
+import { Stack, ThemeProvider, createTheme, useMediaQuery } from '@mui/material'
 import { StoryContext } from '@storybook/react';
 import React, { ReactElement, createContext, useMemo, useState } from 'react'
 
@@ -23,7 +23,7 @@ function MockAppContext({ children, context }: AppThemeContextPropTypes) {
   switch(themeColorMode)
   {
     case "side-by-side": return (
-      <>
+      <Stack spacing={2} direction="row" useFlexGap flexWrap="wrap">
         <ColorModeContext.Provider value={themeColorMode}>
           <ThemeProvider theme={createTheme(getThemeTokens('light'))}>
             {children}
@@ -34,7 +34,7 @@ function MockAppContext({ children, context }: AppThemeContextPropTypes) {
             {children}
           </ThemeProvider>
         </ColorModeContext.Provider>
-      </>
+      </Stack>
     )
   
     default: return (

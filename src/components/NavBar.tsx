@@ -12,7 +12,10 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import { Theme } from '@mui/material/styles';
+import Stack from '@mui/material/Stack';
 import React, { ComponentProps } from 'react';
+import { alpha } from '@mui/material'
 
 export type NavItem = {
     label: string,
@@ -52,22 +55,42 @@ const NavBar = ({ menu, onToggleColorMode, ...props }: NavBarPropTypes) => {
         )
     }
 
+    const generateNavItemStyles = (theme: Theme) => (
+        theme.palette.mode === 'light' ? {
+            color: theme.palette.primary.contrastText,
+            '&:hover': {
+                bgcolor: theme.palette.primary.light,
+                color: theme.palette.primary.contrastText,
+            }
+        } : {
+            color: theme.palette.text.primary,
+            '&:hover': {
+                bgcolor: alpha(theme.palette.primary.dark, 0.15),
+                color: theme.palette.primary.main,
+            },
+        }
+    )
+
     const renderNavItemButton = (navItem: NavItem): JSX.Element => {
         return (
             <Button
                 key={navItem.label}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={[
+                    { my: 2, display: 'block' },
+                    generateNavItemStyles
+                ]}
             >
-                {navItem.label}
-            </Button>
+    { navItem.label }
+            </Button >
         )
     }
 
-    return (
-        <AppBar {...props} color='primary'>
-            <Container maxWidth="xl">
-                <Toolbar disableGutters>
+return (
+    <AppBar {...props} color='primary'>
+        <Container maxWidth="xl">
+            <Toolbar disableGutters>
+                <Stack direction="row" sx={[ {cursor: 'pointer'}, generateNavItemStyles ]}>
                     <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
                     <Typography
                         variant="h6"
@@ -86,68 +109,69 @@ const NavBar = ({ menu, onToggleColorMode, ...props }: NavBarPropTypes) => {
                     >
                         LOGO
                     </Typography>
+                </Stack>
 
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-                        <IconButton
-                            size="large"
-                            aria-label="account of current user"
-                            aria-controls="menu-appbar"
-                            aria-haspopup="true"
-                            onClick={handleOpenNavMenu}
-                            color="inherit"
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                        <Menu
-                            id="menu-appbar"
-                            anchorEl={anchorElNav}
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'left',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'left',
-                            }}
-                            open={Boolean(anchorElNav)}
-                            onClose={handleCloseNavMenu}
-                            sx={{
-                                display: { xs: 'block', md: 'none' },
-                            }}
-                        >
-                            {menu.map((navItem) => renderNavItem(navItem))}
-                        </Menu>
-                    </Box>
-                    <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-                    <Typography
-                        variant="h5"
-                        noWrap
-                        component="a"
-                        href=""
+                <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                    <IconButton
+                        size="large"
+                        aria-label="account of current user"
+                        aria-controls="menu-appbar"
+                        aria-haspopup="true"
+                        onClick={handleOpenNavMenu}
+                        color="inherit"
+                    >
+                        <MenuIcon />
+                    </IconButton>
+                    <Menu
+                        id="menu-appbar"
+                        anchorEl={anchorElNav}
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'left',
+                        }}
+                        keepMounted
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'left',
+                        }}
+                        open={Boolean(anchorElNav)}
+                        onClose={handleCloseNavMenu}
                         sx={{
-                            mr: 2,
-                            display: { xs: 'flex', md: 'none' },
-                            flexGrow: 1,
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
-                            color: 'inherit',
-                            textDecoration: 'none',
+                            display: { xs: 'block', md: 'none' },
                         }}
                     >
-                        LOGO
-                    </Typography>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {menu.map((navItem) => renderNavItemButton(navItem))}
-                    </Box>
-                    <IconButton sx={{ ml: 1 }} onClick={onToggleColorMode} color="inherit">
-                        {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
-                    </IconButton>
-                </Toolbar>
-            </Container>
-        </AppBar>
-    );
+                        {menu.map((navItem) => renderNavItem(navItem))}
+                    </Menu>
+                </Box>
+                <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+                <Typography
+                    variant="h5"
+                    noWrap
+                    component="a"
+                    href=""
+                    sx={{
+                        mr: 2,
+                        display: { xs: 'flex', md: 'none' },
+                        flexGrow: 1,
+                        fontFamily: 'monospace',
+                        fontWeight: 700,
+                        letterSpacing: '.3rem',
+                        color: 'inherit',
+                        textDecoration: 'none',
+                    }}
+                >
+                    LOGO
+                </Typography>
+                <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                    {menu.map((navItem) => renderNavItemButton(navItem))}
+                </Box>
+                <IconButton sx={{ ml: 1 }} onClick={onToggleColorMode} color="inherit">
+                    {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+                </IconButton>
+            </Toolbar>
+        </Container>
+    </AppBar>
+);
 };
 
 export default NavBar;
