@@ -1,4 +1,4 @@
-import { createTheme } from "@mui/material";
+import { Palette, PaletteMode, createTheme } from "@mui/material";
 import { light } from "@mui/material/styles/createPalette";
 
 declare module '@mui/material/styles' {
@@ -15,12 +15,11 @@ declare module '@mui/material/styles' {
     // }
 }
 
-const theme = createTheme({
+export const getThemeTokens = (mode: PaletteMode) => ({
     palette: {
+        mode,
         primary: {
             main: "#00B2CA"
-        }
+        },
     },
 });
-
-export default theme;

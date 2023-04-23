@@ -1,31 +1,18 @@
-import React, { ComponentProps } from 'react';
+import AdbIcon from '@mui/icons-material/Adb';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import MenuIcon from '@mui/icons-material/Menu';
+import { useTheme } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
+import Container from '@mui/material/Container';
+import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
-
-// const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-
-const pages: NavItem[] = [
-    {
-        label: 'Products',
-        destination: '/'
-    },
-    {
-        label: 'Pricing',
-        destination: '/'
-    },
-]
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import React, { ComponentProps } from 'react';
 
 export type NavItem = {
     label: string,
@@ -34,8 +21,10 @@ export type NavItem = {
 }
 
 export type NavBarPropTypes = ComponentProps<typeof AppBar> & {
-    /** A list of all navigatable items from the navbar */
+    /** A list of all navigatable items from the navbar. */
     menu: readonly NavItem[],
+    /** Callback executed when color mode switch is toggled. */
+    onToggleColorMode: () => void,
 }
 
 /**
@@ -43,8 +32,9 @@ export type NavBarPropTypes = ComponentProps<typeof AppBar> & {
  *
  * @author [Jacob Head](https://github.com/HeadJk)
  */
-const NavBar = ({ menu: navItems, ...props }: NavBarPropTypes) => {
+const NavBar = ({ menu, onToggleColorMode, ...props }: NavBarPropTypes) => {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+    const theme = useTheme();
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
@@ -126,7 +116,7 @@ const NavBar = ({ menu: navItems, ...props }: NavBarPropTypes) => {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            {navItems.map((navItem) => renderNavItem(navItem))}
+                            {menu.map((navItem) => renderNavItem(navItem))}
                         </Menu>
                     </Box>
                     <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -149,8 +139,11 @@ const NavBar = ({ menu: navItems, ...props }: NavBarPropTypes) => {
                         LOGO
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {navItems.map((navItem) => renderNavItemButton(navItem))}
+                        {menu.map((navItem) => renderNavItemButton(navItem))}
                     </Box>
+                    <IconButton sx={{ ml: 1 }} onClick={onToggleColorMode} color="inherit">
+                        {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+                    </IconButton>
                 </Toolbar>
             </Container>
         </AppBar>
