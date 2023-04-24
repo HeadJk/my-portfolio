@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "npm-run-all --parallel next:dev storybook:dev cypress:open",
-    "test": "cypress:test",
+    "test": "npm run cypress:test",
     "start": "npm run next:start",
     "build": "npm run next:build",
     "ci": "npm-run-all build start",

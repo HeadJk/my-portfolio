@@ -26,7 +26,7 @@ export type NavBarPropTypes = ComponentProps<typeof AppBar> & {
     /** A list of all navigatable items from the navbar. */
     menu: readonly NavItem[],
     /** Callback executed when color mode switch is toggled. */
-    onToggleColorMode: () => void,
+    onToggleColorMode?: () => void,
 }
 
 /**
