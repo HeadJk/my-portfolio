@@ -12,8 +12,9 @@ import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { Theme } from '@mui/material/styles';
-import React, { ComponentProps } from 'react';
+import React, { ComponentProps, useContext } from 'react';
 import Link from 'next/link';
+import { ColorModeContext } from '@/context/AppContext';
 import Logo from './Logo';
 
 export type NavItem = {
@@ -25,8 +26,6 @@ export type NavItem = {
 export type NavBarPropTypes = ComponentProps<typeof AppBar> & {
     /** A list of all navigatable items from the navbar. */
     menu: readonly NavItem[],
-    /** Callback executed when color mode switch is toggled. */
-    onToggleColorMode?: () => void,
 }
 
 /**
@@ -34,9 +33,10 @@ export type NavBarPropTypes = ComponentProps<typeof AppBar> & {
  *
  * @author [Jacob Head](https://github.com/HeadJk)
  */
-const NavBar = ({ menu, onToggleColorMode, ...props }: NavBarPropTypes) => {
+const NavBar = ({ menu, ...props }: NavBarPropTypes) => {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
     const theme = useTheme();
+    const colorMode = useContext(ColorModeContext);
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
@@ -137,7 +137,7 @@ const NavBar = ({ menu, onToggleColorMode, ...props }: NavBarPropTypes) => {
                         {menu.map((navItem) => renderNavItemButton(navItem))}
                     </Box>
                     <Tooltip title="Toggle light/dark theme">
-                        <IconButton size="large" sx={[generateNavItemStyles]} onClick={onToggleColorMode} color="inherit">
+                        <IconButton size="large" sx={[generateNavItemStyles]} onClick={colorMode.toggleColorMode} color="inherit">
                             {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
                         </IconButton>
                     </Tooltip>

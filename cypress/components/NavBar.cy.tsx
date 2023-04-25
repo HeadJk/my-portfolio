@@ -1,5 +1,6 @@
 import React from 'react'
 import NavBar, { NavItem } from '../../src/components/NavBar'
+import AppContext from '@/context/AppContext'
 
 const TestMenu: React.ComponentProps<typeof NavBar>['menu'] = [
   {
@@ -32,7 +33,7 @@ describe('<NavBar />', () => {
   it('renders with links visible on large screens', () => {
     cy.viewport(1260, 800);
     cy.mount(<NavBar menu={TestMenu} />)
-    
+
     eachMenuItemShould("be.visible")
   })
   it('renders with links hidden on small screens', () => {
@@ -44,7 +45,7 @@ describe('<NavBar />', () => {
   it('renders with links visible after pressing button on small screens', () => {
     cy.viewport(360, 800);
     cy.mount(<NavBar menu={TestMenu} />)
-    
+
     eachMenuItemShould("not.be.visible")
     eachCondensedMenuItemShould("not.be.visible")
 
@@ -52,5 +53,19 @@ describe('<NavBar />', () => {
 
     eachMenuItemShould("not.be.visible")
     eachCondensedMenuItemShould("be.visible")
+  })
+  it('toggles dark mode', () => {
+    cy.viewport(360, 800);
+    cy.mount(<AppContext><NavBar menu={TestMenu} /></AppContext>)
+
+    eachMenuItemShould("not.be.visible")
+    eachCondensedMenuItemShould("not.be.visible")
+
+    cy.get('[data-testid="Brightness4Icon"]').should("be.visible")
+    cy.get('.MuiButtonBase-root').get('[data-testid="Brightness4Icon"]').click()
+    cy.get('[data-testid="Brightness7Icon"]').should("be.visible")
+    cy.get('.MuiButtonBase-root').get('[data-testid="Brightness7Icon"]').click()
+    cy.get('[data-testid="Brightness4Icon"]').should("be.visible")
+
   })
 })

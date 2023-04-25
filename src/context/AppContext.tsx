@@ -1,14 +1,14 @@
 import { getThemeTokens } from '@/themes/theme'
 import { ThemeProvider, createTheme, useMediaQuery } from '@mui/material'
-import React, { ReactElement, createContext, useMemo, useState } from 'react'
+import React, { ReactNode, createContext, useMemo, useState } from 'react'
 
 export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
-export type AppThemeContextPropTypes = {
-  children: ReactElement
+export type AppContextPropTypes = {
+  children: ReactNode
 }
 
-function AppContext({children}: AppThemeContextPropTypes) {
+function AppContext({children}: AppContextPropTypes) {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const [mode, setMode] = useState<'light' | 'dark'>(prefersDarkMode ? 'dark' : 'light');
   
