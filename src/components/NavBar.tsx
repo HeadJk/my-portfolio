@@ -12,7 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { Theme } from '@mui/material/styles';
-import React, { ComponentProps, useContext } from 'react';
+import React, { useContext } from 'react';
 import { AppContext } from '@/context/AppContext';
 import Logo from './Logo';
 
@@ -22,7 +22,7 @@ export type NavItem = {
     destination: string,
 }
 
-export type NavBarPropTypes = OverwriteProps<typeof AppBar, {
+export type NavBarPropTypes = OverwriteProps<(typeof AppBar), {
     /** a list of all navigatable items from the navbar */
     menu: readonly NavItem[],
 }>
