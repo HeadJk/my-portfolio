@@ -61,6 +61,12 @@ describe('<NavBar />', () => {
     eachMenuItemShould("not.be.visible")
     eachCondensedMenuItemShould("not.be.visible")
 
+    // Initial state depends on OS. Toggle to light mode by default
+    cy.get('.MuiButtonBase-root').get('[data-testid="Brightness7Icon"]')
+      .then(elem => {
+        cy.get('.MuiButtonBase-root').get('[data-testid="Brightness7Icon"]').click()
+      })
+
     cy.get('[data-testid="Brightness4Icon"]').should("be.visible")
     cy.get('.MuiButtonBase-root').get('[data-testid="Brightness4Icon"]').click()
     cy.get('[data-testid="Brightness7Icon"]').should("be.visible")

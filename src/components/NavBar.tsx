@@ -13,23 +13,22 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { Theme } from '@mui/material/styles';
 import React, { ComponentProps, useContext } from 'react';
-import Link from 'next/link';
 import { AppContext } from '@/context/AppContext';
 import Logo from './Logo';
 
 export type NavItem = {
     label: string,
-    /** Should be a URL if it is a string */
+    /** should be a URL if it is a string */
     destination: string,
 }
 
-export type NavBarPropTypes = ComponentProps<typeof AppBar> & {
-    /** A list of all navigatable items from the navbar. */
+export type NavBarPropTypes = OverwriteProps<typeof AppBar, {
+    /** a list of all navigatable items from the navbar */
     menu: readonly NavItem[],
-}
+}>
 
 /**
- * AppBar used for website navigation.
+ * AppBar used for website navigation
  *
  * @author [Jacob Head](https://github.com/HeadJk)
  */
