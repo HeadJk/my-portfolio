@@ -1,6 +1,6 @@
 import React from 'react'
 import NavBar, { NavItem } from '../../src/components/NavBar'
-import AppContext from '@/context/AppContext'
+import AppContextProvider from '@/context/AppContext'
 
 const TestMenu: React.ComponentProps<typeof NavBar>['menu'] = [
   {
@@ -56,7 +56,7 @@ describe('<NavBar />', () => {
   })
   it('toggles dark mode', () => {
     cy.viewport(360, 800);
-    cy.mount(<AppContext><NavBar menu={TestMenu} /></AppContext>)
+    cy.mount(<AppContextProvider><NavBar menu={TestMenu} /></AppContextProvider>)
 
     eachMenuItemShould("not.be.visible")
     eachCondensedMenuItemShould("not.be.visible")

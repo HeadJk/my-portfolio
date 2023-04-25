@@ -1,4 +1,4 @@
-import type { Preview } from "@storybook/react";
+import type { Preview,  } from "@storybook/react";
 import AppContext from "../src/context/AppContext";
 import React from "react";
 import MockAppContext from "./mockups/MockAppContext";
@@ -19,7 +19,7 @@ export const globalTypes = {
       ],
     },
   },
-};
+} as const;
 
 const preview: Preview = {
   parameters: {

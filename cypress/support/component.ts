@@ -14,7 +14,7 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import AppContext from '../../src/context/AppContext'
+import AppContextProvider from '../../src/context/AppContext'
 import './commands'
 
 // Alternatively you can use CommonJS syntax:

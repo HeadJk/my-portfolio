@@ -14,7 +14,7 @@ import Typography from '@mui/material/Typography';
 import { Theme } from '@mui/material/styles';
 import React, { ComponentProps, useContext } from 'react';
 import Link from 'next/link';
-import { ColorModeContext } from '@/context/AppContext';
+import { AppContext } from '@/context/AppContext';
 import Logo from './Logo';
 
 export type NavItem = {
@@ -36,7 +36,7 @@ export type NavBarPropTypes = ComponentProps<typeof AppBar> & {
 const NavBar = ({ menu, ...props }: NavBarPropTypes) => {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
     const theme = useTheme();
-    const colorMode = useContext(ColorModeContext);
+    const colorMode = useContext(AppContext);
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
