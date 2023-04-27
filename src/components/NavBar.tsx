@@ -14,6 +14,7 @@ import Typography from '@mui/material/Typography';
 import { Theme } from '@mui/material/styles';
 import React, { useContext } from 'react';
 import { AppContext } from '@/context/AppContext';
+import type { OverwriteProps } from '@/types/global';
 import Logo from './Logo';
 
 export type NavItem = {

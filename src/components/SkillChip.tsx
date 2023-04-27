@@ -1,19 +1,20 @@
-import { Chip, Theme } from '@mui/material';
 import StorageIcon from '@mui/icons-material/Storage';
-import { alpha } from '@mui/material';
+import Chip from '@mui/material/Chip';
+import type { OverwriteProps } from '@/types/global';
 
-export type CardPropTypes = {
+export type SkillChipPropTypes = OverwriteProps<(typeof Chip), {
 
-}
+}>
 
 /**
- * 
+ *
  *
  * @author [Jacob Head](https://github.com/HeadJk)
  */
-const SkillChip = ({ }: CardPropTypes) => {
+const SkillChip = ({ ...props }: SkillChipPropTypes) => {
   return (
     <Chip
+      { ...props }
       label="SQL Databases"
       clickable
       icon={<StorageIcon />}
