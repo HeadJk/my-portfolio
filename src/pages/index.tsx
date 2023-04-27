@@ -1,12 +1,16 @@
 import NavBar from '@/components/NavBar'
 import MainMenu from '@/menus/MainMenu'
 import Head from 'next/head'
-import React, { useContext } from 'react'
-import AppContextProvider, { AppContext } from '../context/AppContext'
+import AppContextProvider from '../context/AppContext'
+import React from 'react';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+import SkillChip from '@/components/SkillChip';
+
 
 export default function Home() {
-  
-
   return (
     <AppContextProvider>
       <Head>
@@ -17,6 +21,7 @@ export default function Home() {
       </Head>
       <main>
           <NavBar menu={MainMenu} position='relative' />
+          <SkillChip />
       </main>
     </AppContextProvider>
   )

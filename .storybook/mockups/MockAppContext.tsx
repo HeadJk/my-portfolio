@@ -1,11 +1,11 @@
-import { getThemeTokens } from '../../src/themes/theme'
-import { Stack, ThemeProvider, createTheme } from '@mui/material'
-import { StoryContext } from '@storybook/react';
-import React, { ReactElement, createContext, useMemo } from 'react'
-import type { globalTypes } from '../preview';
-import { UPDATE_GLOBALS, FORCE_RE_RENDER  } from '@storybook/core-events';
-import { AppContext } from '../../src/context/AppContext';
+import { Stack, ThemeProvider, createTheme } from '@mui/material';
+import { UPDATE_GLOBALS } from '@storybook/core-events';
 import { addons } from '@storybook/preview-api';
+import { StoryContext } from '@storybook/react';
+import React, { ReactElement, useMemo, useEffect } from 'react';
+import { AppContext } from '../../src/context/AppContext';
+import { getThemeTokens } from '../../src/themes/theme';
+import type { globalTypes } from '../preview';
 
 export type MockAppContextProviderPropTypes = {
   children: ReactElement,
@@ -16,6 +16,13 @@ type GlobalThemeOptions = (typeof globalTypes)['theme']['toolbar']['items'][numb
 
 function MockAppContextProvider({ children, context }: MockAppContextProviderPropTypes) {
   const themeColorMode: GlobalThemeOptions = context.globals.theme
+
+  // Update story background color
+  useEffect(() => {
+    const body = window.document.body;
+    if(themeColorMode === 'light') body.style.backgroundColor = lightTheme.palette.background.default
+    else if(themeColorMode === 'dark') body.style.backgroundColor = darkTheme.palette.background.default
+  }, [themeColorMode])
 
   const appContextProps = useMemo(
     () => ({

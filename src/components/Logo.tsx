@@ -2,8 +2,6 @@ import React, { ComponentProps } from "react"
 import AdbIcon from '@mui/icons-material/Adb';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import { Theme } from "@mui/material";
-import { SxProps } from "@mui/material";
 
 export type LogoPropTypes = {
     /** size of the logo

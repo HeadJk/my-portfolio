@@ -12,7 +12,7 @@ const meta: Meta<typeof NavBar> = {
 export default meta;
 type Story = StoryObj<typeof NavBar>;
 
-export const MainNavBar: Story = {
+export const Main: Story = {
     args: {
         menu: MainMenu
     }

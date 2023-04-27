@@ -1,5 +1,4 @@
 import type { Preview,  } from "@storybook/react";
-import AppContext from "../src/context/AppContext";
 import React from "react";
 import MockAppContext from "./mockups/MockAppContext";
 
@@ -30,6 +29,9 @@ const preview: Preview = {
         date: /Date$/,
       },
     },
+    backgrounds: {
+      
+    }
   },
   decorators: [
     (Story, context) => (
