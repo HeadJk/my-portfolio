@@ -1,5 +1,5 @@
-import { Palette, PaletteMode, createTheme, Theme, ThemeOptions } from "@mui/material";
-import { light } from "@mui/material/styles/createPalette";
+import { PaletteMode, ThemeOptions } from "@mui/material";
+import { Roboto } from 'next/font/google';
 
 declare module '@mui/material/styles' {
     // interface Theme {
@@ -15,11 +15,21 @@ declare module '@mui/material/styles' {
     // }
 }
 
+export const roboto = Roboto({
+  weight: ['300', '400', '500', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+  fallback: ['Helvetica', 'Arial', 'sans-serif'],
+});
+
 export const getThemeTokens = (mode: PaletteMode) => ({
     palette: {
         mode,
         primary: {
             main: "#00B2CA"
         },
-    }
-} as const satisfies ThemeOptions);
+    },
+    typography: {
+        fontFamily: roboto.style.fontFamily,
+    },
+}) as const satisfies ThemeOptions;
