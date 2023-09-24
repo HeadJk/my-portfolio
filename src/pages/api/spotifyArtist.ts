@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-type Data = {
+export type SpotifyArtistData = {
     ok: true,
     [x: string]: unknown
 } | {
@@ -9,7 +9,7 @@ type Data = {
     error: string
 }
 
-const createServerErrorSetter = (res: NextApiResponse<Data>) => (errorMessage: string) => {
+const createServerErrorSetter = (res: NextApiResponse<SpotifyArtistData>) => (errorMessage: string) => {
     res.status(500).json({
         ok: false,
         error: errorMessage
@@ -18,7 +18,7 @@ const createServerErrorSetter = (res: NextApiResponse<Data>) => (errorMessage: s
 
 export default async function handler(
     req: NextApiRequest,
-    res: NextApiResponse<Data>
+    res: NextApiResponse<SpotifyArtistData>
 ) {
     const setServerError = createServerErrorSetter(res);
 
@@ -62,12 +62,18 @@ export default async function handler(
     else if (typeof expires_in !== 'number') setServerError("spotify expires_in is not defined");
     else {
         const spotifyArtistUrl = new URL(artistId, "https://api.spotify.com/v1/artists/");
+
         const spotifyArtistRes = await fetch(spotifyArtistUrl, {
             method: "GET",
             headers: {
                 "Authorization":  `${token_type}  ${access_token}`
             }
         })
+
+        if(!spotifyArtistRes.ok) {
+            setServerError(await spotifyArtistRes.text());
+            return
+        }
 
         res.status(spotifyArtistRes.status).json(await spotifyArtistRes.json());
     }
