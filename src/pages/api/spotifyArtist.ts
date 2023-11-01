@@ -71,7 +71,8 @@ export default async function handler(
         })
 
         if(!spotifyArtistRes.ok) {
-            setServerError(await spotifyArtistRes.text());
+            const retryAfterSeconds = spotifyArtistRes.headers.get("Retry-After")
+            setServerError((await spotifyArtistRes.text()) + `. Retry again in ${retryAfterSeconds} seconds.`);
             return
         }
 
